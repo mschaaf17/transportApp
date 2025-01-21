@@ -1,3 +1,12 @@
+:root {
+  --primary-color: #af3f39; 
+  --secondary-color: #78635f; 
+  --tertiary-color: #030303; 
+  --forth-color: #373b44;
+  --text-color: #333; /* Text color */
+  --background-color: #f0f0f0; /* Background color */
+  --border-color: #ccc; /* Border color */
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,3 +20,154 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* header bar */
+.header-bar {
+  background-color: #373b44;
+  padding: 10px;
+  display: flex;
+  /* justify-content: space-between; */
+  justify-content: flex-end;
+
+}
+
+.number-only {
+  padding-left: 20%;
+}
+.header-contents {
+  padding-left: 10%;
+  justify-content: flex-end
+}
+
+.header-bar a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: bold;
+  font-style: italic;
+
+}
+
+.header-bar a:hover {
+  color: white; 
+}
+
+/* header bar section end */
+
+
+/* home section  */
+/* Global Styles for Header Container */
+.header-container {
+  /* text-align: center; Center the text horizontally */
+  padding: 40px 20px; /* Add some padding for spacing */
+  /* background-color: var(--background-color);  */
+  border-radius: 8px; /* Round corners of the container */
+  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  */
+  margin-bottom: 40px; /* Spacing below the header */
+  position: relative; /* Needed for absolute positioning of background */
+}
+
+/* Main Title Styling */
+.main-title {
+  font-size: 36px; /* Large font for the main title */
+  color: var(--primary-color); /* Primary color */
+  font-weight: bold; /* Bold font */
+  margin-bottom: 10px; /* Space between title and slogan */
+}
+
+/* Slogan Styling */
+.slogan {
+  font-size: 18px; /* Slightly smaller font for the slogan */
+  color: var(--secondary-color); /* Secondary color */
+  font-style: italic; /* Italicize the slogan for emphasis */
+  margin-bottom: 20px; /* Space between slogan and the explanation */
+}
+
+/* Brief Explanation Styling */
+.message-user {
+  font-size: 16px; /* Smaller font for the explanation */
+  color: var(--text-color); /* Text color for better readability */
+  margin-bottom: 30px; /* Space between the explanation and form */
+  line-height: 1.6; /* Add space between lines to improve readability */
+  max-width: 700px; /* Limit width for readability */
+  margin-left: auto; /* Center align the text */
+  margin-right: auto; /* Center align the text */
+}
+
+/* Form Component Styling */
+.Transport {
+  max-width: 800px; 
+  margin-left: auto; 
+  margin-right: auto; 
+}
+
+/* home section end */
+
+
+
+/* form section */
+label {
+  font-weight: bold;
+}
+
+.ant-input::placeholder {
+  /* color: rgba(0, 0, 0, 0.7);  */
+  color: #9b9898; 
+}
+
+.ant-input {
+  background-color: #f0f0f0;  
+  border-color: #9a9696;         
+  color: #333;            
+  border-radius: 8px;  
+}
+
+
+.ant-picker {
+  background-color: #f0f0f0;  
+  border-color: #9a9696;     
+  color: #333;            
+  border-radius: 8px;        
+}
+
+.ant-picker:hover {
+  border-color: #888;        
+}
+
+.ant-picker-input input::placeholder {
+  /* color: rgba(0, 0, 0, 0.5); */
+  color: #e3d9d9;
+}
+
+
+.ant-picker-range {
+  background-color: #f0f0f0;  
+  border-color: #9a9696;          
+  color: #333;              
+  border-radius: 8px;         
+}
+
+.ant-picker-range:hover {
+  border-color: #888;       
+}
+
+.submit-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 8px;
+  padding: 10px 20px;
+  margin-top: 20px;
+}
+
+
+
+/* footer  */
+
+/* .footer {
+  background-color: #282c34;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+} */
+
+/* footer seciton end */
