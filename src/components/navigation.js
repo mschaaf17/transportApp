@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Layout, Menu } from 'antd';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, CarOutlined } from '@ant-design/icons';
-
+import React, { useState, useEffect } from "react";
+import { Layout, Menu } from "antd";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UserOutlined,
+  CarOutlined,
+} from "@ant-design/icons";
 
 const { Sider } = Layout;
 
@@ -20,34 +24,40 @@ export function Navigation() {
 
   useEffect(() => {
     handleResize(); // Call on initial load
-    window.addEventListener('resize', handleResize); // Attach the resize event
+    window.addEventListener("resize", handleResize); // Attach the resize event
 
     return () => {
-      window.removeEventListener('resize', handleResize); // Clean up on unmount
+      window.removeEventListener("resize", handleResize); // Clean up on unmount
     };
   }, []);
 
   const menuItems = [
-    { key: '1', icon: <CarOutlined />, label: 'Home', link: '/' },
-    { key: '2', icon: <UserOutlined />, label: 'About Us', link: '/about' },
+    { key: "1", icon: <CarOutlined />, label: "Home", link: "/" },
+    { key: "2", icon: <UserOutlined />, label: "About Us", link: "/about" },
   ];
 
   return (
     <Sider trigger={null} collapsible collapsed={collapsed} className="sider">
       {/* Title / Logo */}
-      <div className={`title ${collapsed ? 'collapsed' : 'expanded'}`}>
+      <div className={`title ${collapsed ? "collapsed" : "expanded"}`}>
         {collapsed ? (
           <div className="logo">B&C</div>
         ) : (
-          <div className="full-title">B&C LOGISTICS</div>
+          <div className="full-title">
+            {" "}
+            <span className="sider-bc-only">B&C</span>{" "}
+            <span className="sider-logistics-only">LOGISTICS</span>
+          </div>
         )}
       </div>
 
       {/* Menu Items */}
-      <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-        {menuItems.map(item => (
+      <Menu theme="none" mode="inline" defaultSelectedKeys={["1"]}>
+        {menuItems.map((item) => (
           <Menu.Item key={item.key} icon={item.icon}>
-            <Link to={item.link}>{item.label}</Link>
+            <Link className={"menu-item"} to={item.link}>
+              {item.label}
+            </Link>
           </Menu.Item>
         ))}
       </Menu>

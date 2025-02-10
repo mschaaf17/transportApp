@@ -1,17 +1,23 @@
- import React, {useState} from 'react';
- import ReactDOM from 'react-dom';
-
-import {TransportForm} from '../components/form'
+import React, { useState, useEffect } from "react";
+import { TransportForm } from "../components/form";
 
 function Home() {
   return (
-    <div className="header-container">
-    <h1 className="main-title">B&C Logistics</h1>
-    <div className="slogan">We are ready to transport.</div>
-    <p className="message-user">Fill out the information below and someone will reach out shortly.</p>
-    <TransportForm />
-  </div>
-  
+    <div className="home-container">
+      {/* Background Title & Slogan */}
+      <div className="title-background">
+        <h1 className="main-title">
+          <span className="bc-only">B&C</span> <br />
+          <span className="sub-title">LOGISTICS</span>
+        </h1>
+        <div className="slogan">Over 10 years in service</div>
+      </div>
+
+      {/* Foreground Form */}
+      <div className="form-container">
+        <TransportForm />
+      </div>
+    </div>
   );
 }
 
