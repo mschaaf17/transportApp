@@ -16,18 +16,18 @@ export function Navigation() {
   // Set the initial state of the sidebar based on window width
   const handleResize = () => {
     if (window.innerWidth < 768) {
-      setCollapsed(true); // Collapse sidebar on smaller screens
+      setCollapsed(true);
     } else {
-      setCollapsed(false); // Expand sidebar on larger screens
+      setCollapsed(false);
     }
   };
 
   useEffect(() => {
-    handleResize(); // Call on initial load
-    window.addEventListener("resize", handleResize); // Attach the resize event
+    handleResize();
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize); // Clean up on unmount
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 

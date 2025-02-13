@@ -163,15 +163,17 @@ export const TransportForm = () => {
   };
 
   return (
-    <>
+    <div>
       <Form
         form={form}
         onFinish={handleSubmit}
         className="transport-form"
+        style={{ overflowY: "auto" }}
         initialValues={{
           variant: "filled",
         }}
       >
+        <h1 className="form-title">Transport Vehicle</h1>
         <p className="message-user">
           Fill out the information below and someone will reach out shortly.
         </p>
@@ -241,7 +243,10 @@ export const TransportForm = () => {
             },
           ]}
         >
-          <RangePicker format="MM-DD-YYYY" />
+          <RangePicker
+            format="MM-DD-YYYY"
+            onFocus={(e) => e.preventDefault()}
+          />
         </Form.Item>
 
         {/* Drop Off Date Range */}
@@ -257,7 +262,10 @@ export const TransportForm = () => {
             },
           ]}
         >
-          <RangePicker format="MM-DD-YYYY" />
+          <RangePicker
+            format="MM-DD-YYYY"
+            onFocus={(e) => e.preventDefault()}
+          />
         </Form.Item>
 
         {/* Pick Up State */}
@@ -382,6 +390,6 @@ export const TransportForm = () => {
           </Button>
         </Form.Item>
       </Form>
-    </>
+    </div>
   );
 };

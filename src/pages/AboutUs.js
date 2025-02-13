@@ -3,9 +3,9 @@ import React from "react";
 export const AboutUs = () => {
   return (
     <div className="about-us-container">
-      <h1 className="about-us-header">About B&C Logistics</h1>
+      <h1 className="about-us-header">About B&C LOGISTICS</h1>
       <p className="about-us-paragraph">
-        At <strong>B&C Logistics</strong>, we understand the importance of safe,
+        At <strong>B&C LOGISTICS</strong>, we understand the importance of safe,
         reliable, and efficient vehicle transportation. Whether you're moving a
         car or fleet of vehicles, we’re here to ensure your precious cargo gets
         from point A to point B without hassle.
@@ -24,7 +24,7 @@ export const AboutUs = () => {
       </p>
 
       <p className="about-us-paragraph">
-        At <strong>B&C Logistics</strong>, we’re more than just a transportation
+        At <strong>B&C LOGISTICS</strong>, we’re more than just a transportation
         service – we’re your trusted partner in vehicle shipping. Whether you're
         relocating, selling, or buying, let us take the stress out of your
         vehicle transport needs.
