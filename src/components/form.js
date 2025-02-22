@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Input, Form, DatePicker, Select, notification } from "antd";
 import { useNavigate } from "react-router-dom";
 import emailjs from "emailjs-com";
+import MyDateRangePicker from "./mobileDatePicker";
 
 const { RangePicker } = DatePicker;
 
@@ -68,7 +69,9 @@ export const TransportForm = () => {
   const [vehicleCount, setVehicleCount] = useState(0);
   const [vehicleTypesList, setVehicleTypesList] = useState([]);
   const [vehicleDescriptions, setVehicleDescriptions] = useState([]);
+  
 
+  
   const handleVehicleCountChange = (value) => {
     setVehicleCount(Number(value));
     setVehicleDescriptions(new Array(Number(value)).fill(""));
@@ -78,19 +81,18 @@ export const TransportForm = () => {
     const updatedTypes = form.getFieldsValue();
     const updatedVehicleTypesList = [];
 
-    // Collect all selected vehicle types
     for (let i = 1; i <= updatedTypes.vehicle_count; i++) {
       updatedVehicleTypesList.push(updatedTypes[`vehicle_type_${i}`]);
     }
 
-    // If 'Other...' is selected, create a new input field for the description
+    
     setVehicleTypesList(updatedVehicleTypesList);
 
     const updatedDescriptions = [...vehicleDescriptions];
     if (value === "Other...") {
-      updatedDescriptions[index] = ""; // Clear the description if it's being added
+      updatedDescriptions[index] = ""; 
     } else {
-      updatedDescriptions[index] = null; // Ensure that it's null for non-'Other' vehicle types
+      updatedDescriptions[index] = null; 
     }
 
     setVehicleDescriptions(updatedDescriptions);
@@ -112,7 +114,6 @@ export const TransportForm = () => {
       const type = values[`vehicle_type_${i}`];
       vehicleTypesList.push(type);
 
-      // Capture the description if "Other..." is selected
       if (type === "Other..." && values[`vehicle_description_${i}`]) {
         vehicleDescriptions.push(values[`vehicle_description_${i}`]);
       }
@@ -163,12 +164,13 @@ export const TransportForm = () => {
   };
 
   return (
-    <div>
+    <div className="transport-form-container">
       <Form
         form={form}
         onFinish={handleSubmit}
         className="transport-form"
-        style={{ overflowY: "auto" }}
+        layout="vertical" 
+        // style={{ overflowY: "auto" }}
         initialValues={{
           variant: "filled",
         }}
@@ -184,7 +186,7 @@ export const TransportForm = () => {
           className="form-item"
           rules={[{ required: true, message: "Please provide company name" }]}
         >
-          <Input />
+          <Input placeholder="Company Name"/>
         </Form.Item>
 
         {/* Contact Person Field */}
@@ -199,7 +201,7 @@ export const TransportForm = () => {
             },
           ]}
         >
-          <Input />
+          <Input placeholder="Contact Person" />
         </Form.Item>
 
         {/* Phone Number */}
@@ -245,7 +247,10 @@ export const TransportForm = () => {
         >
           <RangePicker
             format="MM-DD-YYYY"
-            onFocus={(e) => e.preventDefault()}
+            // onFocus={(e) => e.preventDefault()}
+            style={{ width: '100%' }} 
+            // size="large"
+            getPopupContainer={(triggerNode) => triggerNode.parentNode}
           />
         </Form.Item>
 
@@ -263,10 +268,20 @@ export const TransportForm = () => {
           ]}
         >
           <RangePicker
-            format="MM-DD-YYYY"
-            onFocus={(e) => e.preventDefault()}
-          />
+  format="MM-DD-YYYY"
+  style={{ width: "100%" }}
+  dropdownClassName="mobile-date-picker"
+  picker="date"
+  panelRender={(panel) => (
+    <div style={{ width: "100%", overflowX: "auto" }}>{panel}</div>
+  )}
+/>
+
+
         </Form.Item>
+
+      <MyDateRangePicker/>
+       
 
         {/* Pick Up State */}
         <Form.Item
@@ -313,7 +328,7 @@ export const TransportForm = () => {
             { required: true, message: "Please select the number of vehicles" },
           ]}
         >
-          <Select onChange={handleVehicleCountChange}>
+          <Select onChange={handleVehicleCountChange} placeholder= "Select Amount">
             {[...Array(9)].map((_, index) => (
               <Select.Option key={index + 1} value={index + 1}>
                 {index + 1}
@@ -340,6 +355,7 @@ export const TransportForm = () => {
                 >
                   <Select
                     onChange={(value) => handleVehicleTypeChange(value, index)}
+                    placeholder ="Select Vehicle Type"
                   >
                     {vehicleTypes.map((type) => (
                       <Select.Option key={type} value={type}>
@@ -380,12 +396,12 @@ export const TransportForm = () => {
 
         {/* Submit Button */}
         <Form.Item
-          wrapperCol={{
-            offset: 6,
-            span: 16,
-          }}
+          // wrapperCol={{
+          //   offset: 6,
+          //   span: 16,
+          // }}
         >
-          <Button className="submit-btn" htmlType="submit">
+          <Button className="submit-btn" htmlType="submit" block>
             Submit
           </Button>
         </Form.Item>

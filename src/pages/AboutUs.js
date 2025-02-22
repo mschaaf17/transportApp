@@ -3,6 +3,7 @@ import React from "react";
 export const AboutUs = () => {
   return (
     <div className="about-us-container">
+      <div className="about-us-content"> 
       <h1 className="about-us-header">About B&C LOGISTICS</h1>
       <p className="about-us-paragraph">
         At <strong>B&C LOGISTICS</strong>, we understand the importance of safe,
@@ -29,6 +30,7 @@ export const AboutUs = () => {
         relocating, selling, or buying, let us take the stress out of your
         vehicle transport needs.
       </p>
+      </div>
     </div>
   );
 };

@@ -24,11 +24,12 @@ function App() {
   return (
     <ConfigProvider>
       <Router>
+      
         <Layout>
           {/* Sidebar */}
           <Navigation />
           {/* Main Layout */}
-          <Layout>
+          <Layout className="content-wrapper">
             {/* Header */}
             <Header
               style={{
