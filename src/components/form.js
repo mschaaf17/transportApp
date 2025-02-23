@@ -3,6 +3,8 @@ import { Button, Input, Form, DatePicker, Select, notification } from "antd";
 import { useNavigate } from "react-router-dom";
 import emailjs from "emailjs-com";
 import MyDateRangePicker from "./mobileDatePicker";
+import dayjs from "dayjs";
+
 
 const { RangePicker } = DatePicker;
 
@@ -99,13 +101,18 @@ export const TransportForm = () => {
   };
 
   const handleSubmit = (values) => {
-    const pickupDate = values.pickup_date
-      ? `${values.pickup_date[0].format("MM-DD-YYYY")} - ${values.pickup_date[1].format("MM-DD-YYYY")}`
-      : "N/A";
 
-    const dropoffRange = values.dropoff_range
-      ? `${values.dropoff_range[0].format("MM-DD-YYYY")} - ${values.dropoff_range[1].format("MM-DD-YYYY")}`
-      : "N/A";
+    
+    const pickupDate = values.pickup_date
+    ? `${dayjs(values.pickup_date[0]).format("MM-DD-YYYY")} - ${dayjs(values.pickup_date[1]).format("MM-DD-YYYY")}`
+    : "N/A";
+
+  const dropoffRange = values.dropoff_range
+    ? `${dayjs(values.dropoff_range[0]).format("MM-DD-YYYY")} - ${dayjs(values.dropoff_range[1]).format("MM-DD-YYYY")}`
+    : "N/A";
+
+  console.log("Pickup Date:", pickupDate);
+  console.log("Dropoff Date Range:", dropoffRange);
 
     const vehicleTypesList = [];
     const vehicleDescriptions = [];
@@ -233,54 +240,54 @@ export const TransportForm = () => {
           <Input placeholder="Enter your email" />
         </Form.Item>
 
+      
+
         {/* Pick Up Date */}
         <Form.Item
-          label="Pick Up Date Range"
+          label="First Available Pick Up Date"
           name="pickup_date"
           className="form-item"
           rules={[
             {
               required: true,
-              message: "Please provide the date of preferred pick up",
+              message: "Please provide the first available date of pick up",
+              validator: (_, value) => {
+                if (value && value[0] && value[0]) {
+                  return Promise.resolve();
+
+                }
+                return Promise.reject("Please provide the first available date of pick up");
+              },
             },
           ]}
         >
-          <RangePicker
-            format="MM-DD-YYYY"
-            // onFocus={(e) => e.preventDefault()}
-            style={{ width: '100%' }} 
-            // size="large"
-            getPopupContainer={(triggerNode) => triggerNode.parentNode}
-          />
+          <MyDateRangePicker/>
+        
         </Form.Item>
 
         {/* Drop Off Date Range */}
-        <Form.Item
-          label="Drop Off Date Range"
-          name="dropoff_range"
-          className="form-item"
-          rules={[
-            {
-              required: true,
-              message:
-                "Please provide the date range for preferred drop off times",
-            },
-          ]}
-        >
-          <RangePicker
-  format="MM-DD-YYYY"
-  style={{ width: "100%" }}
-  dropdownClassName="mobile-date-picker"
-  picker="date"
-  panelRender={(panel) => (
-    <div style={{ width: "100%", overflowX: "auto" }}>{panel}</div>
-  )}
-/>
+        {/* <Form.Item
+  label="Drop Off Date Range"
+  name="dropoff_range"
+  className="form-item"
+  rules={[
+    {
+      required: true,
+      message: "Please provide the date range for preferred drop off dates",
+      validator: (_, value) => {
+        if (value && value[0] && value[1]) {
+          return Promise.resolve();
+        }
+        return Promise.reject("Please provide the date range for preferred drop off times");
+      },
+    },
+  ]}
+>
+  <MyDateRangePicker />
+</Form.Item> */}
 
 
-        </Form.Item>
-
-      <MyDateRangePicker/>
+      
        
 
         {/* Pick Up State */}
