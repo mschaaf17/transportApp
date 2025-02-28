@@ -1,9 +1,10 @@
 :root {
   --primary-color: #0d0c0c;
   /* --secondary-color: #78635f;  */
-  --secondary-color: #2860bb;
-  --tertiary-color: #3c404b;
+  --secondary-color: rgb(15, 157, 204);
+  --tertiary-color: linear-gradient(to right, #00f0ff, #6d50ac);
   --forth-color: #373b44;
+  --fifth-color: #6d50ac;
   --text-color: #333;
   --background-color: #f0f0f0;
   --border-color: #ccc;
@@ -49,7 +50,7 @@ code {
 
 /* General header bar styling */
 .header-bar {
-  background-color: var(--tertiary-color);
+  background: var(--tertiary-color);
   padding: 5px 30px;
   display: flex;
   justify-content: flex-end;
@@ -80,7 +81,7 @@ code {
 }
 
 .header-contents a:hover {
-  color: var(--secondary-color);
+  color: var(--fourth-color);
 }
 
 @media (max-width: 652px) {
@@ -505,7 +506,7 @@ padding: 10px !important;
 
 .slogan {
   font-size: 1.6rem;
-  color: var(--secondary-color);
+  color: var(---color);
   font-style: italic;
   font-weight: bold;
   animation: driveIn 2s ease-out forwards;

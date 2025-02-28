@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const MyDateRangePicker = ({ value = [], onChange }) => {
     const [startDate] = value || []; // Get values from Form.Item
+    const [isOpen, setIsOpen] = useState(false); // Control visibility
 
     const handleStartDateChange = (date) => {
         onChange([date]); // Update Form value
+        setIsOpen(false); // Close the picker
     };
-
 
     return (
         <div className='date-pickers'>
@@ -18,14 +19,18 @@ const MyDateRangePicker = ({ value = [], onChange }) => {
                 onChange={handleStartDateChange} 
                 selectsStart
                 startDate={startDate}
-               
                 popperPlacement="bottom"
+                onSelect={() => setIsOpen(false)} // Close picker after selection
+                onClickOutside={() => setIsOpen(false)} // Close on outside click
+                open={isOpen} // Control visibility
+                onFocus={() => setIsOpen(true)} // Open when focused
             />
         </div>
     );
 };
 
 export default MyDateRangePicker;
+
 
 
 

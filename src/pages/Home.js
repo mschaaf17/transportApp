@@ -10,7 +10,7 @@ function Home() {
           <span className="bc-only">B&C</span> <br />
           <span className="sub-title">LOGISTICS</span>
         </h1>
-        <div className="slogan">Over 10 years in service</div>
+        <div className="slogan">If It Fits, It Ships</div>
       </div>
 
       {/* Foreground Form */}

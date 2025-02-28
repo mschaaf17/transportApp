@@ -63,7 +63,7 @@ const states = [
 ];
 
 // Vehicle options
-const vehicleTypes = ["SUV", "Truck", "Car", "Van", "Other..."];
+const vehicleTypes = ["SUV", "Truck", "Car", "Van", "Other"];
 
 export const TransportForm = () => {
   const [form] = Form.useForm();
@@ -71,6 +71,7 @@ export const TransportForm = () => {
   const [vehicleCount, setVehicleCount] = useState(0);
   const [vehicleTypesList, setVehicleTypesList] = useState([]);
   const [vehicleDescriptions, setVehicleDescriptions] = useState([]);
+  const [selectedReferral, setSelectedReferral] = useState("");
   
 
   
@@ -91,7 +92,7 @@ export const TransportForm = () => {
     setVehicleTypesList(updatedVehicleTypesList);
 
     const updatedDescriptions = [...vehicleDescriptions];
-    if (value === "Other...") {
+    if (value === "Other") {
       updatedDescriptions[index] = ""; 
     } else {
       updatedDescriptions[index] = null; 
@@ -102,17 +103,16 @@ export const TransportForm = () => {
 
   const handleSubmit = (values) => {
 
-    
     const pickupDate = values.pickup_date
-    ? `${dayjs(values.pickup_date[0]).format("MM-DD-YYYY")} - ${dayjs(values.pickup_date[1]).format("MM-DD-YYYY")}`
+    ? `${dayjs(values.pickup_date[0]).format("MM-DD-YYYY")}`
     : "N/A";
+    // const pickupDate = values.pickup_date
+    // ? `${dayjs(values.pickup_date[0]).format("MM-DD-YYYY")} - ${dayjs(values.pickup_date[1]).format("MM-DD-YYYY")}`
+    // : "N/A";
 
-  const dropoffRange = values.dropoff_range
-    ? `${dayjs(values.dropoff_range[0]).format("MM-DD-YYYY")} - ${dayjs(values.dropoff_range[1]).format("MM-DD-YYYY")}`
-    : "N/A";
-
-  console.log("Pickup Date:", pickupDate);
-  console.log("Dropoff Date Range:", dropoffRange);
+  // const dropoffRange = values.dropoff_range
+  //   ? `${dayjs(values.dropoff_range[0]).format("MM-DD-YYYY")} - ${dayjs(values.dropoff_range[1]).format("MM-DD-YYYY")}`
+  //   : "N/A";
 
     const vehicleTypesList = [];
     const vehicleDescriptions = [];
@@ -121,10 +121,40 @@ export const TransportForm = () => {
       const type = values[`vehicle_type_${i}`];
       vehicleTypesList.push(type);
 
-      if (type === "Other..." && values[`vehicle_description_${i}`]) {
+      if (type === "Other" && values[`vehicle_description_${i}`]) {
         vehicleDescriptions.push(values[`vehicle_description_${i}`]);
       }
     }
+
+    let selectedMemberName = values.referral_person
+    let referralPerson = values.referral_person
+    let recipientEmail;
+  
+
+
+  switch (referralPerson) {
+    case "KJ":
+      recipientEmail = "bclogisticsut@gmail.com";
+      break;
+    case "Braden":
+      recipientEmail = "bclogisticsutah@gmail.com";
+      break;
+    case "Preston":
+      recipientEmail = "PrestonBringhurst1@gmail.com";
+      break;
+    default:
+      recipientEmail = "bclogisticsut@gmail.com";
+      break;
+  }
+
+  
+
+  // If "Other" is selected, use the entered custom name
+  if (referralPerson === "Other" && values.custom_referral) {
+     referralPerson = values.custom_referral;  
+     selectedMemberName = "B&C Team"
+  }
+
 
     // Construct the email template parameters
     const templateParams = {
@@ -133,13 +163,16 @@ export const TransportForm = () => {
       phone: values.phone,
       email: values.email,
       pickup_date: pickupDate,
-      dropoff_range: dropoffRange,
+      // dropoff_range: dropoffRange,
       pickup_state: values.pickup_state,
       dropoff_state: values.dropoff_state,
       vehicle_count: values.vehicle_count,
       vehicle_types: vehicleTypesList.join(", "),
       vehicle_descriptions:
         vehicleDescriptions.length > 0 ? vehicleDescriptions.join(", ") : "N/A",
+        referral_person: selectedMemberName, 
+        custom_referral: referralPerson, 
+      recipient_email: recipientEmail,
     };
 
     // Send the email via EmailJS
@@ -373,7 +406,7 @@ export const TransportForm = () => {
                 </Form.Item>
 
                 {/* Additional input for 'Other...' vehicle type */}
-                {vehicleTypesList[index] === "Other..." && (
+                {vehicleTypesList[index] === "Other" && (
                   <Form.Item
                     label={`Vehicle Description ${index + 1}`}
                     name={`vehicle_description_${index + 1}`}
@@ -392,6 +425,43 @@ export const TransportForm = () => {
             ))}
           </>
         )}
+
+<Form.Item
+        label="How Did You Hear About Us?"
+        name="referral_person"
+        className="form-item"
+        rules={[
+          {
+            required: true,
+            message: "Please select the name of who referred you to our business",
+          },
+        ]}
+      >
+        <Select showSearch onChange={(value) => setSelectedReferral(value)}>
+          {["KJ", "Braden", "Preston", "Other"].map((name) => (
+            <Select.Option key={name} value={name}>
+              {name}
+            </Select.Option>
+          ))}
+        </Select>
+      </Form.Item>
+
+      {/* Show input field only if "Other" is selected */}
+      {selectedReferral === "Other" && (
+        <Form.Item
+          name="custom_referral"
+          label ="Who referred you to B&C?"
+          className="form-item"
+          rules={[
+            {
+              required: true,
+              message: "Please enter the name of who referred you",
+            },
+          ]}
+        >
+          <Input placeholder="Enter referral name" />
+        </Form.Item>
+      )}
         {/* Additional Information */}
         <Form.Item
           label="Additional Information"
